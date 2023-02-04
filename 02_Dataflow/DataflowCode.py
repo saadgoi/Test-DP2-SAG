@@ -79,7 +79,7 @@ def edemData(project_id, bq_dataset, output_table):
         #Part02: Write proccessing message to their appropiate sink
         #Data to Bigquery
         (data | "Write to BigQuery" >>  beam.io.WriteToBigQuery(
-            "project_id:bq_dataset.output_table", 
+            table = f"project_id:edemDataset.{output_table}", 
             schema = schema,
             create_disposition=beam.io.BigQueryDisposition.CREATE_IF_NEEDED,
             write_disposition=beam.io.BigQueryDisposition.WRITE_APPEND
@@ -97,4 +97,4 @@ def edemData(project_id, bq_dataset, output_table):
 
 if __name__ == '__main__':
     logging.getLogger().setLevel(logging.INFO)
-    edemData("<project_id>", "edemDataset", "iotToBigQuery")
+    edemData("iotToBigQuery")
